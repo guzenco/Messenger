@@ -28,8 +28,37 @@ public class TestUser {
 		u.setPassword("123");
 		assertEquals(u.getPassword(), "123");
 		
-		assertEquals(u.getToken(), null);
+		assertEquals(u.getToken(), "");
 		u.setToken("t123");
 		assertEquals(u.getToken(), "t123");
 	}	
+	
+	@Test
+	public void testEqual() {
+		User u1 = new User("n1", "l1", "p1");
+		User u2 = new User("n1", "l1", "p1");
+		u1.setId(0);
+		u2.setId(0);
+		assertEquals(u1, u2);
+		//Test super
+		u2.setId(1);
+		assertNotEquals(u1, u2);
+		u2.setId(0);
+		//Test name
+		u2.setName("n2");
+		assertNotEquals(u1, u2);
+		u2.setName("n1");
+		//Test login
+		u2.setLogin("l2");
+		assertNotEquals(u1, u2);
+		u2.setLogin("l1");
+		//Test password
+		u2.setPassword("p2");
+		assertNotEquals(u1, u2);
+		u2.setPassword("p1");
+		//Test token
+		u2.setToken("1");
+		assertNotEquals(u1, u2);
+		u2.setToken("");
+	}
 }

@@ -1,11 +1,30 @@
 package myapp.objects;
 
+import java.util.Objects;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.NamedQuery;
+import jakarta.persistence.Table;
+
+@jakarta.persistence.Entity
+@Table(name="users")
+@NamedQuery(name="getAllUsers", query="SELECT u FROM User u")
+@NamedQuery(name="findUserByLogin", query="SELECT u FROM User u WHERE u.login = :login")
 public class User extends Entity {
 	
+	@Column(name="name", length=64, nullable=false, unique=false)
 	private String name;
+	
+	@Column(name="login", length=16, nullable=false, unique=true)
 	private String login;
+	
+	@Column(name="password", length=64, nullable=false, unique=false)
 	private String password;
-	private String token;
+	
+	@Column(name="token", length=64, nullable=false, unique=false)
+	private String token = "";
+	
+	@Column(name="group_id", nullable=false)
 	private int group = 0;
 	
 	public User() {
@@ -57,4 +76,30 @@ public class User extends Entity {
 		chat.addMessage(m);
 		return m;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = super.hashCode();
+		result = prime * result + Objects.hash(group, login, name, password, token);
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj) {
+			return true;
+		}
+		if (!super.equals(obj)) {
+			return false;
+		}
+		if (!(obj instanceof User)) {
+			return false;
+		}
+		User other = (User) obj;
+		return group == other.group && Objects.equals(login, other.login) && Objects.equals(name, other.name)
+				&& Objects.equals(password, other.password) && Objects.equals(token, other.token);
+	}
+	
+	
 }

@@ -20,7 +20,7 @@ import myapp.objects.Converter;
 import myapp.objects.JsonConverter;
 import myapp.objects.Message;
 import myapp.objects.User;
-import myapp.repositorys.ChatRepository;
+import myapp.repositorys.ChatsRepository;
 import myapp.services.AuthService;
 import myapp.services.InteractionService;
 import myapp.services.InteractionServiceImpl;
@@ -34,7 +34,7 @@ public class TestInteractionServiceImpl {
 	Converter conventer = new JsonConverter();
 	
 	@Mock
-	ChatRepository cr;
+	ChatsRepository cr;
 	
 	@Mock
 	AuthService as;

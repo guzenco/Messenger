@@ -3,10 +3,12 @@ package myapp.repositorys;
 import java.util.List;
 
 import jakarta.ejb.Local;
+import jakarta.transaction.Transactional;
 import myapp.objects.Chat;
 
 @Local
-public interface ChatRepository {
+@Transactional
+public interface ChatsRepository {
 
 	public Chat getChat(int id);
 	public List<Chat> getChats();

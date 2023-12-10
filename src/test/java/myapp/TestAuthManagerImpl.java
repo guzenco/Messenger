@@ -24,9 +24,9 @@ public class TestAuthManagerImpl {
 		u.setPassword("test");
 		long stime = System.currentTimeMillis();
 		String password = DigestUtils.sha1Hex(u.getPassword() + stime);
-
 		assertEquals(am.chechPasword(u, password, stime), true);
 		
+		assertEquals(am.chechPasword(null, password, stime), false);
 		stime += 1;
 		assertEquals(am.chechPasword(u, password, stime), false);
 		
@@ -41,10 +41,16 @@ public class TestAuthManagerImpl {
 
 	@Test
 	public void testChechToken() {
-		u.setToken("testT");
+		String token;
 		long stime = System.currentTimeMillis();
-		String token = DigestUtils.sha1Hex(u.getToken() + stime);
-
+		
+		token = DigestUtils.sha1Hex(u.getToken() + stime);
+		assertEquals(am.chechToken(u, token, stime), false);
+		
+		assertEquals(am.chechToken(null, token, stime), false);
+				
+		u.setToken("testT");
+		token = DigestUtils.sha1Hex(u.getToken() + stime);
 		assertEquals(am.chechToken(u, token, stime), true);
 		
 		stime += 1;

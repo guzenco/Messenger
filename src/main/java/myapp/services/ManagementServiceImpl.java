@@ -8,7 +8,7 @@ import myapp.objects.AccessPolicyLogic;
 import myapp.objects.Chat;
 import myapp.objects.Converter;
 import myapp.objects.User;
-import myapp.repositorys.ChatRepository;
+import myapp.repositorys.ChatsRepository;
 import myapp.repositorys.UsersRepository;
 
 @Stateless
@@ -18,7 +18,7 @@ public class ManagementServiceImpl implements ManagementService {
 	AccessPolicyLogic apl;
 	
 	@EJB
-	ChatRepository cr;
+	ChatsRepository cr;
 	
 	@EJB
 	UsersRepository ur;
@@ -61,16 +61,17 @@ public class ManagementServiceImpl implements ManagementService {
 		if(actor != null) {
 			User user = ur.getUser(user_id);
 			boolean updated = false;
-			if(apl.canUpdateUserName(actor, user)) {
+			if(apl.canUpdateUserName(actor, user) && password != null) {
 				user.setName(name);
 				updated = true;
 			}
-			if(apl.canUpdateUserPassword(actor, user)) {
+			if(apl.canUpdateUserPassword(actor, user) && password != null) {
 				user.setPassword(password);
 				updated = true;
 			}
-			if(updated && ur.putUser(user))
+			if(updated && ur.putUser(user)) {
 				return conventer.getString(user);
+			}
 		}
 		return null;
 	}

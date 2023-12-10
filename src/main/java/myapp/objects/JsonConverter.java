@@ -25,7 +25,7 @@ public class JsonConverter implements Converter {
 		jb.add("id", c.getId());
 		jb.add("name", c.getName());
 		JsonArrayBuilder messages = Json.createArrayBuilder();
-		c.getMesssegas().forEach((i, m) -> messages.add(toJson(m)));
+		c.getMessages().forEach((i, m) -> messages.add(toJson(m)));
 		jb.add("messages", messages);
 		JsonArrayBuilder users = Json.createArrayBuilder();
 		c.getUsers().forEach((u) -> users.add(u));

@@ -20,7 +20,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public User authentication(int id, String token, long time) {
 		User u = ur.getUser(id);
-		if(am.chechToken(u, token, time)) {
+		if(u != null && am.chechToken(u, token, time)) {
 			return u;
 		}
 		return null;
@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public String authorization(String login, String password, long time) {	
 		User u = ur.getUser(login);
-		if(am.chechPasword(u, password, time)) {
+		if(u != null && am.chechPasword(u, password, time)) {
 			u.setToken(am.generateToken());
 			ur.putUser(u);
 			

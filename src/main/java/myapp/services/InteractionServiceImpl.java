@@ -9,7 +9,7 @@ import myapp.objects.Chat;
 import myapp.objects.Converter;
 import myapp.objects.Message;
 import myapp.objects.User;
-import myapp.repositorys.ChatRepository;
+import myapp.repositorys.ChatsRepository;
 
 @Stateless
 public class InteractionServiceImpl implements InteractionService {
@@ -18,7 +18,7 @@ public class InteractionServiceImpl implements InteractionService {
 	AccessPolicyLogic apl;
 	
 	@EJB
-	ChatRepository cr;
+	ChatsRepository cr;
 	
 	@EJB
 	AuthService as;
@@ -68,9 +68,10 @@ public class InteractionServiceImpl implements InteractionService {
 		if(u != null) {
 			Chat c = cr.getChat(chat_id);
 			if(apl.canDeleteMessage(u, c, message_id)) {
+				Message m = c.getMessage(message_id);
 				if(c.removeMessage(message_id)) {
 					cr.putChat(c);
-					return conventer.getString(c);
+					return conventer.getString(m);
 				}
 			}
 		}

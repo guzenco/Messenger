@@ -20,7 +20,7 @@ import myapp.objects.Chat;
 import myapp.objects.Converter;
 import myapp.objects.JsonConverter;
 import myapp.objects.User;
-import myapp.repositorys.ChatRepository;
+import myapp.repositorys.ChatsRepository;
 import myapp.repositorys.UsersRepository;
 import myapp.services.AuthService;
 import myapp.services.ManagementService;
@@ -35,7 +35,7 @@ public class TestManagementServiceImpl {
 	Converter conventer = new JsonConverter();
 	
 	@Mock
-	ChatRepository cr;
+	ChatsRepository cr;
 	
 	@Mock
 	UsersRepository ur;
@@ -117,7 +117,7 @@ public class TestManagementServiceImpl {
 		Mockito.when(cr.getChat(1)).thenReturn(c);
 		Mockito.when(cr.deleteChat(c)).thenReturn(true);
 		assertEquals(ms.deleteChat(0, null, 0, 1), null);
-		assertEquals(ms.deleteChat(1, null, 0, 1), "{\"id\":1,\"name\":\"test\",\"messages\":[],\"users\":[]}");;
+		assertEquals(ms.deleteChat(1, null, 0, 1), "{\"id\":1,\"name\":\"test\",\"messages\":[],\"users\":[]}");
 	}
 
 	@Test

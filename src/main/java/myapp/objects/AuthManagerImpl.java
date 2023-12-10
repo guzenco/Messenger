@@ -13,6 +13,8 @@ public class AuthManagerImpl implements AuthManager {
 
 	@Override
 	public boolean chechPasword(User user, String password, long time) {
+		if(user == null)
+			return false;
 		long stime = System.currentTimeMillis();
 		if(stime >= time && stime - time < 5000) {
 			String hash = DigestUtils.sha1Hex(user.getPassword() + time);
@@ -25,6 +27,10 @@ public class AuthManagerImpl implements AuthManager {
 
 	@Override
 	public boolean chechToken(User user, String token, long time) {
+		if(user == null)
+			return false;
+		if(user.getToken() == "")
+			return false;
 		long stime = System.currentTimeMillis();
 		if(stime >= time && stime - time < 5000) {
 			String hash = DigestUtils.sha1Hex(user.getToken() + time);
